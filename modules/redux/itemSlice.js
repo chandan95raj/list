@@ -1,9 +1,6 @@
-// itemSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialData = [
-  
-];
+const initialData = [];
 
 const itemSlice = createSlice({
   name: 'items',

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Box, Typography, CircularProgress } from '@mui/material';
+import {  Typography, CircularProgress, Button, Card, CardContent, CardActions, Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const ListDetails = () => {
   const items = useSelector((state) => state.items.items);
@@ -26,16 +27,32 @@ const ListDetails = () => {
     fetchItemDetails();
   }, [selectedItem, items]);
 
-  if (loading) return <CircularProgress />;
+  if (loading) return <CircularProgress className='circle' />;
 
   if (!itemDetails) return <div>No item details found</div>;
 
   return (
-    <Box>
-      <Typography variant="h4">Item Details</Typography>
-      <Typography variant="h6">Name: {itemDetails.name}</Typography>
-      <Typography variant="body1">Description: {itemDetails.description}</Typography>
-    </Box>
+    <>
+      <Grid container>
+        <Grid stack md='4' className='m-auto'>
+          <Card>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {itemDetails.title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" className='text-justify'>
+                {itemDetails.description}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Link to="/">
+                <Button size="small">Back</Button>
+              </Link>
+            </CardActions>
+          </Card>
+        </Grid>
+      </Grid>
+    </>
   );
 };
 

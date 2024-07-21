@@ -7,3 +7,15 @@
 a {
   text-decoration: none !important;
 }
+
+.circle {
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  width: 100px !important;
+  height: 100px !important;
+}
+
+.text-justify {
+  text-align: justify !important;
+}

@@ -1,10 +1,16 @@
 import { Container } from "@mui/material"
+import Navbar from "../shared/Navbar"
 
-const Layout = ({children}) => {
+
+// eslint-disable-next-line react/prop-types
+const Layout = ({ children }) => {
   return (
-    <Container className="py-3">
+    <>
+      <Navbar />
+      <Container className="pt-4 ">
         {children}
-    </Container>
+      </Container>
+    </>
   )
 }
 

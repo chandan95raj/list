@@ -1,9 +1,11 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { selectItem } from '../../modules/redux/itemSlice'; // Ensure this path is correct
+import { selectItem } from '../../modules/redux/itemSlice';
 import { Table } from 'antd';
 import { Box, IconButton, Typography } from '@mui/material';
 import { RemoveRedEye } from '@mui/icons-material';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const List = () => {
   const dispatch = useDispatch();
@@ -20,18 +22,25 @@ const List = () => {
       title: 'S/n',
       dataIndex: 'key',
       key: 'key',
-      render: (text) => <a>{text}.</a>,
+      render: (text) => <>{text}.</>,
+      width: 80,
     },
     {
       title: 'Title',
-      dataIndex: 'name',
-      key: 'name',
-      render: (text) => <a>{text}</a>,
+      dataIndex: 'title',
+      key: 'title',
+      width: 150,
     },
     {
       title: 'Description',
       dataIndex: 'description',
       key: 'description',
+      render: (text) => (
+        <span>
+          {text.length > 50 ? text.substring(0, 50) + '...' : text}
+        </span>
+      ),
+      width: 200,
     },
     {
       title: 'Action',
@@ -46,23 +55,32 @@ const List = () => {
           <RemoveRedEye />
         </IconButton>
       ),
+      width: 100,
     },
   ];
 
-  const data = [
-    { key: '1', name: 'John Brown', description: 'New York No. 1 Lake Park' },
-    { key: '2', name: 'Jim Green', description: 'London No. 1 Lake Park' },
-    { key: '3', name: 'Joe Black', description: 'Sydney No. 1 Lake Park' },
-    { key: '4', name: 'Jim Green', description: 'London No. 1 Lake Park' },
-    { key: '5', name: 'Joe Black', description: 'Sydney No. 1 Lake Park' },
-  ];
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios.get('https://raw.githubusercontent.com/chandan95raj/api/main/list.json')
+      .then(response => {
+        setData(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
 
   return (
     <>
-      <Typography variant="h3" className="text-center">Listing Assignment</Typography>
+      <Typography variant="h3" className="text-center" color='secondary'>Listing Assignment</Typography>
       <hr />
       <Box>
-        <Table columns={columns} dataSource={data} pagination={{ pageSize: 10 }} />
+        <Table 
+          columns={columns} 
+          dataSource={data} 
+          pagination={{ pageSize: 10 }} 
+          scroll={{ x: 'max-content' }}
+        />
       </Box>
     </>
   );
