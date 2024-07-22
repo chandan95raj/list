@@ -12,8 +12,6 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
-import Cookies from 'js-cookie';
-const user = Cookies.get('user');
 const pages = [
     {
         menu: 'List',
@@ -26,21 +24,14 @@ const pages = [
 ];
 const settings = [
     {
-      menu: 'Dashboard',
-      path: '/dashboard',
-      protected: true, // Only visible when logged in
+        menu: 'Dashboard',
+        path: '/dashboard'
     },
     {
-      menu: 'Login',
-      path: '/login',
-      protected: false, // Only visible when not logged in
-    },
-    {
-      menu: 'Logout',
-      path: '/logout',
-      protected: true, // Only visible when logged in
+        menu: 'Login',
+        path: '/login'
     }
-  ];
+];
 
 const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -171,24 +162,13 @@ const Navbar = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting, index) => {
-            if (setting.protected && !user) {
-              return null; // Do not render protected items if user is not logged in
-            }
-            if (!setting.protected && user && setting.path === '/login') {
-              return null; // Do not render login if user is logged in
-            }
-            if (!setting.protected && !user && setting.path !== '/login') {
-              return null; // Do not render dashboard if user is not logged in
-            }
-            return (
-              <MenuItem key={index} onClick={() => { }}>
-                <Link to={setting.path} textAlign="center" className="text-dark">
-                  {setting.menu}
-                </Link>
-              </MenuItem>
-            );
-          })}
+                            {settings.map((setting) => (
+                                <Link to={setting.path}  key={setting} >
+                                <MenuItem onClick={handleCloseUserMenu}>
+                                    <Typography textAlign="center" className='text-dark'>{setting.menu}</Typography>
+                                </MenuItem>
+                                </Link>
+                            ))}          
                         </Menu>
                     </Box>
                 </Toolbar>

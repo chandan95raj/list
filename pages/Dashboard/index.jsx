@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
   const [username, setUsername] = useState('');
@@ -16,14 +16,15 @@ const Dashboard = () => {
   }, [navigate]);
 
   return (
-    <div>
+    <>
       <h1>Dashboard</h1>
       {username ? (
         <p>Welcome, {username}!</p>
       ) : (
         <p>Loading...</p>
       )}
-    </div>
+      <Link to="/logout">Logout</Link>
+    </>
   );
 };
 
