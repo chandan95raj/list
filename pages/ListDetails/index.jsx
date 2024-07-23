@@ -35,7 +35,7 @@ const ListDetails = () => {
     <>
       <Grid container>
         <Grid stack md='4' className='m-auto'>
-          <Card>
+          <Card className='shadow'>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 {itemDetails.title}
@@ -46,7 +46,7 @@ const ListDetails = () => {
             </CardContent>
             <CardActions>
               <Link to="/">
-                <Button size="small">Back</Button>
+                <Button size="small" variant='outlined'>Back</Button>
               </Link>
             </CardActions>
           </Card>

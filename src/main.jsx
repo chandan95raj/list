@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import { Provider } from 'react-redux';
 import { createTheme, ThemeProvider } from "@mui/material";
-import store from '../modules/redux/store'; // Ensure this path is correct
+import store from '../modules/redux/store';
 
 const theme = createTheme({ typography: { fontFamily: "Poppins" } });
 
